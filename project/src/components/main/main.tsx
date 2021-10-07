@@ -1,14 +1,14 @@
 import FilmCard from '../film-card/film-card';
 
 type MainProps = {
-  filmsCount: number;
+  films: {name: string, poster: string, id: number}[];
   name: string;
   date: string;
   genre: string;
 
 }
 
-function Main({filmsCount, name, date, genre}: MainProps): JSX.Element {
+function Main({films, name, date, genre}: MainProps): JSX.Element {
   return (
     <body>
       <div className="visually-hidden">
@@ -141,7 +141,7 @@ function Main({filmsCount, name, date, genre}: MainProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {new Array(filmsCount).fill('').map((i) => <FilmCard key={i}/>)}
+            {films.map((item, i) => <FilmCard name={item.name} poster={item.poster} key={item.id}/>)}
           </div>
 
           <div className="catalog__more">

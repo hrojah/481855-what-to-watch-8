@@ -1,10 +1,10 @@
 import Main from '../main/main';
-import {filmCount, promoInformation} from '../../constants/constants';
+import {films, promoInformation} from '../../constants/constants';
 
 function App(): JSX.Element {
   return (
     <Main
-      filmsCount={filmCount}
+      films={films}
       name={promoInformation.NAME}
       date={promoInformation.DATE}
       genre={promoInformation.GENRE}
