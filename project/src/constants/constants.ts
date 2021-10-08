@@ -1,4 +1,6 @@
 export const STAR_COUNT = 10;
+const MY_LIST_FILMS_COUNT = 10;
+const MORE_LIKE_THIS_FILMS_COUNT = 4;
 
 export const promoInformation = {
   GENRE: 'Drama',
@@ -41,3 +43,28 @@ export const films = [
   {name: 'Mindhunter', poster: 'img/mindhunter.jpg', id: Math.random()},
   {name: 'Midnight Special', poster: 'img/midnight-special.jpg', id: Math.random()},
 ];
+
+export const reviews = [
+  {rating: 8.9, comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&#39;s funniest and most exquisitely designed movies in years.', date: new Date(), user: {id: Math.random(), name: 'Kate Muir'}, id: Math.random()},
+  {rating: 8.9, comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&#39;s funniest and most exquisitely designed movies in years.', date: new Date(), user: {id: Math.random(), name: 'Kate Muir'}, id: Math.random()},
+  {rating: 8.9, comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&#39;s funniest and most exquisitely designed movies in years.', date: new Date(), user: {id: Math.random(), name: 'Kate Muir'}, id: Math.random()},
+];
+
+export const myFilmsList = films.slice(MY_LIST_FILMS_COUNT);
+
+export const moreLikeThisFilms = films.slice(MORE_LIKE_THIS_FILMS_COUNT);
+
+export const AppRoute = {
+  MAIN: '/',
+  SIGN_IN: '/login',
+  MY_LIST: '/mylist',
+  FILM: '/films/:id?',
+  ADD_REVIEW: '/films/:id?/review',
+  PLAYER: '/player/:id?',
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NOAUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
