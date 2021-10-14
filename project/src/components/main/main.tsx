@@ -1,18 +1,22 @@
-import FilmCard from '../film-card/film-card';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
-import Genre from '../genre/genre';
-import {GENRES_ITEMS} from '../../constants/constants';
+import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
+import {FilmTypes} from '../../types/film';
+import Genre from '../genre/genre';
+import {AppRoute, GENRES_ITEMS} from '../../constants/constants';
+import {useHistory} from 'react-router-dom';
 
 type MainProps = {
-  films: {name: string, poster: string, id: number}[];
+  films: FilmTypes[];
   name: string;
   date: string;
   genre: string;
 }
 
 function Main({films, name, date, genre}: MainProps): JSX.Element {
+  const history = useHistory();
+
   return (
     <body>
       <Hidden />
@@ -48,13 +52,13 @@ function Main({films, name, date, genre}: MainProps): JSX.Element {
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
-                  <span>Play</span>
+                  <span onClick={() => history.push(AppRoute.PLAYER)}>Play</span>
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
-                  <span>My list</span>
+                  <span onClick={() => history.push(AppRoute.MY_LIST)}>My list</span>
                 </button>
               </div>
             </div>
@@ -70,9 +74,7 @@ function Main({films, name, date, genre}: MainProps): JSX.Element {
             {GENRES_ITEMS.map((item, index) => <Genre key={item} genre={item} index={index}/>)}
           </ul>
 
-          <div className="catalog__films-list">
-            {films.map((item) => <FilmCard name={item.name} poster={item.poster} key={item.id}/>)}
-          </div>
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

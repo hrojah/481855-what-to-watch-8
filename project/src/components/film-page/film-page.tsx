@@ -1,13 +1,17 @@
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
-import FilmCard from '../film-card/film-card';
 import FilmInfo from './film-info';
 import FilmReviews from './film-reviews';
+import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
+import {AppRoute, MORE_LIKE_THIS_FILMS_COUNT} from '../../constants/constants';
+import {FilmTypes} from '../../types/film';
+import {ReviewTypes} from '../../types/review';
+import {Link, useHistory} from 'react-router-dom';
 
 type FilmPageProps = {
-  films: {name: string, poster: string, id: number}[];
-  reviews?: {rating: number, comment: string, date: Date, id: number, user: {id: number, name:string}}[];
+  films: FilmTypes[];
+  reviews?: ReviewTypes[];
   filmInfo: boolean;
   name: string;
   date: string;
@@ -15,6 +19,9 @@ type FilmPageProps = {
 }
 
 function FilmPage({films, reviews, filmInfo, name, date, genre}: FilmPageProps): JSX.Element {
+  const moreLikeThisFilms = films.slice(0, MORE_LIKE_THIS_FILMS_COUNT);
+  const history = useHistory();
+
   return (
     <>
       <Hidden />
@@ -46,15 +53,15 @@ function FilmPage({films, reviews, filmInfo, name, date, genre}: FilmPageProps):
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"/>
                   </svg>
-                  <span>Play</span>
+                  <span onClick={() => history.push(AppRoute.PLAYER)}>Play</span>
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"/>
                   </svg>
-                  <span>My list</span>
+                  <span onClick={() => history.push(AppRoute.MY_LIST)}>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={AppRoute.ADD_REVIEW} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -90,9 +97,7 @@ function FilmPage({films, reviews, filmInfo, name, date, genre}: FilmPageProps):
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
-            {films.map((item) => <FilmCard name={item.name} poster={item.poster} key={item.id} />)}
-          </div>
+          <FilmList films={moreLikeThisFilms} />
         </section>
 
         <footer className="page-footer">
