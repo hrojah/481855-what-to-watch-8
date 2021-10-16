@@ -43,10 +43,10 @@ function FilmPage({films, reviews, filmInfo}: FilmPageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{films[filmId]?.name}</h2>
+              <h2 className="film-card__title">{films[filmId].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{films[filmId]?.genre}</span>
-                <span className="film-card__year">{films[filmId]?.released}</span>
+                <span className="film-card__genre">{films[filmId].genre}</span>
+                <span className="film-card__year">{films[filmId].released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -71,7 +71,7 @@ function FilmPage({films, reviews, filmInfo}: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={films[filmId]?.poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={films[filmId].poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
