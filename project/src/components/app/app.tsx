@@ -39,9 +39,6 @@ function App({films}: AppProps): JSX.Element {
         <Route exact path={AppRoute.FILM}>
           <FilmPage
             films={films}
-            name={promoInformation.NAME}
-            genre={promoInformation.GENRE}
-            date={promoInformation.DATE}
             filmInfo
           />
         </Route>
