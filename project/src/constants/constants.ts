@@ -1,3 +1,4 @@
+import {nanoid} from '@reduxjs/toolkit';
 export const STAR_COUNT = 10;
 export const MY_LIST_FILMS_COUNT = 10;
 export const MORE_LIKE_THIS_FILMS_COUNT = 4;
@@ -36,3 +37,11 @@ export const AuthorizationStatus = {
   NOAUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
 };
+
+export const ADD_REVIEWS_STATE = {
+  COUNT: '8',
+  TEXT: 'Review text',
+};
+
+export const STARS = new Array(STAR_COUNT).fill(nanoid());
+

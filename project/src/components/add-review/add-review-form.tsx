@@ -1,9 +1,9 @@
 import Star from './star';
 import {useState} from 'react';
-import {STAR_COUNT} from '../../constants/constants';
+import {STAR_COUNT, ADD_REVIEWS_STATE, STARS} from '../../constants/constants';
 
 function AddReviewForm(): JSX.Element {
-  const [userReview, setUserReview] = useState([8, 'Review text']);
+  const [userReview, setUserReview] = useState([ADD_REVIEWS_STATE.COUNT, ADD_REVIEWS_STATE.TEXT]);
 
   const ratingClickHandler = (evt: any) => {
     setUserReview([evt.target.value, userReview[1]]);
@@ -14,7 +14,7 @@ function AddReviewForm(): JSX.Element {
       <form action="#" className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {new Array(STAR_COUNT).fill('').map((item, index) => <Star setUserReview={ratingClickHandler} key={`star-${STAR_COUNT - index}`} index={STAR_COUNT - index}/>)}
+            {STARS.map((item, index) => <Star setUserReview={ratingClickHandler} key={STARS[index]} index={STAR_COUNT - index}/>)}
           </div>
         </div>
         <div className="add-review__text">
