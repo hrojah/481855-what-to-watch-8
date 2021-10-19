@@ -1,9 +1,17 @@
 import AddReviewForm from './add-review-form';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Hidden from '../hidden/hidden';
 
-function AddReview(): JSX.Element {
+
+type AddReviewProps = {
+  name: string;
+  poster: string;
+  backgroundImage: string,
+}
+
+function AddReview({name, poster, backgroundImage}: AddReviewProps): JSX.Element {
   return (
     <>
       <Hidden />
@@ -11,18 +19,19 @@ function AddReview(): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
             <Logo/>
+            <Breadcrumbs name={name}/>
             <UserBlock/>
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={poster} alt={name} width="218" height="327" />
           </div>
         </div>
         <AddReviewForm/>

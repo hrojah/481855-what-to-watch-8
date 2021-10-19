@@ -1,13 +1,17 @@
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
-import FilmCard from '../film-card/film-card';
+import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
+import {MY_LIST_FILMS_COUNT} from '../../constants/constants';
+import {FilmTypes} from '../../types/film';
 
 type MyListProps = {
-  films: {name: string, poster: string, id: number}[];
+  films: FilmTypes[];
 }
 
 function MyList({films}: MyListProps): JSX.Element {
+  const myFilms = films.slice(0, MY_LIST_FILMS_COUNT);
+
   return (
     <>
       <Hidden />
@@ -23,9 +27,7 @@ function MyList({films}: MyListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <div className="catalog__films-list">
-            {films.map((item) => <FilmCard name={item.name} poster={item.poster} key={item.id}/>)}
-          </div>
+          <FilmList films={myFilms} />
         </section>
 
         <footer className="page-footer">
