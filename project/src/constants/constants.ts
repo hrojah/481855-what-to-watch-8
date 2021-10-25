@@ -3,6 +3,7 @@ export const STAR_COUNT = 10;
 export const MY_LIST_FILMS_COUNT = 10;
 export const MORE_LIKE_THIS_FILMS_COUNT = 4;
 export const PATHNAME_SYMBOL = 7;
+export const HOVER_DELAY = 1000;
 
 export const promoInformation = {
   GENRE: 'Drama',

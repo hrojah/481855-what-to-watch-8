@@ -10,7 +10,7 @@ function FilmList({films}: FilmListProps): JSX.Element {
   const [, setFilmId] = useState();
   return (
     <div className="catalog__films-list">
-      {films.map((item) => <FilmCard setFilmId={setFilmId} id={item.id} name={item.name} poster={item.poster} key={item.id} />)}
+      {films.map((item) => <FilmCard setFilmId={setFilmId} id={item.id} name={item.name} poster={item.poster} previewVideoLink={item.previewVideoLink} key={item.id} />)}
     </div>
   );
 }
