@@ -21,13 +21,13 @@ function Tabs({film, reviews, id}: TabsProps): JSX.Element {
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li className={isOverview ? 'film-nav__item film-nav__item--active' : 'film-nav__item'}>
-            <a onClick={() => {setIsOverview(true); setIsDetails(false); setIsReviews(false);}} className="film-nav__link">Overview</a>
+            <a onClick={(evt) => {setIsOverview(true); setIsDetails(false); setIsReviews(false); evt.preventDefault();}} href="" className="film-nav__link">Overview</a>
           </li>
           <li className={isDetails ? 'film-nav__item film-nav__item--active' : 'film-nav__item'}>
-            <a onClick={() => {setIsOverview(false); setIsDetails(true); setIsReviews(false);}} className="film-nav__link">Details</a>
+            <a onClick={(evt) => {setIsOverview(false); setIsDetails(true); setIsReviews(false); evt.preventDefault();}} href="" className="film-nav__link">Details</a>
           </li>
           <li className={isReviews ? 'film-nav__item film-nav__item--active' : 'film-nav__item'}>
-            <a onClick={() => {setIsOverview(false); setIsDetails(false); setIsReviews(true);}} className="film-nav__link">Reviews</a>
+            <a onClick={(evt) => {setIsOverview(false); setIsDetails(false); setIsReviews(true); evt.preventDefault();}} href="" className="film-nav__link">Reviews</a>
           </li>
         </ul>
       </nav>
