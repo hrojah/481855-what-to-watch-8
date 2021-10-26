@@ -9,6 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import {promoInformation, AppRoute, AuthorizationStatus} from '../../constants/constants';
 import {FilmTypes} from '../../types/film';
 import AddReview from '../add-review/add-review';
+import {reviews} from '../../mocks/reviews';
 
 type AppProps = {
   films: FilmTypes[];
@@ -39,7 +40,7 @@ function App({films}: AppProps): JSX.Element {
         <Route exact path={AppRoute.FILM}>
           <FilmPage
             films={films}
-            filmInfo
+            reviews={reviews}
           />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
