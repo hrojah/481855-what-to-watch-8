@@ -1,7 +1,6 @@
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
-import FilmInfo from './film-info';
-import FilmReviews from './film-reviews';
+import Tabs from './tabs/tabs';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
 import {AppRoute, MORE_LIKE_THIS_FILMS_COUNT, PATHNAME_SYMBOL} from '../../constants/constants';
@@ -11,17 +10,15 @@ import {useHistory, useLocation} from 'react-router-dom';
 
 type FilmPageProps = {
   films: FilmTypes[];
-  reviews?: ReviewTypes[];
-  filmInfo: boolean;
+  reviews: ReviewTypes[];
 }
 
-function FilmPage({films, reviews, filmInfo}: FilmPageProps): JSX.Element {
-  const moreLikeThisFilms = films.slice(0, MORE_LIKE_THIS_FILMS_COUNT);
+function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
   const history = useHistory();
   const location = useLocation();
   const id = location.pathname.substr(PATHNAME_SYMBOL);
   const filmId = films.findIndex((el) => el.id === id);
-
+  const moreLikeThisFilms = films.filter((item) => films[filmId].genre === item.genre).slice(0, MORE_LIKE_THIS_FILMS_COUNT);
 
   return (
     <>
@@ -74,23 +71,7 @@ function FilmPage({films, reviews, filmInfo}: FilmPageProps): JSX.Element {
               <img src={films[filmId].poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="/" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              {filmInfo ? <FilmInfo film={films[filmId]} /> : ''}
-              {!!reviews && <FilmReviews reviews={reviews}/>}
-            </div>
+            <Tabs film={films[filmId]} reviews={reviews} id={id}/>
           </div>
         </div>
       </section>
