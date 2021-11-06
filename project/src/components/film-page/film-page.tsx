@@ -3,7 +3,7 @@ import UserBlock from '../user-block/user-block';
 import Tabs from './tabs/tabs';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
-import {AppRoute, MORE_LIKE_THIS_FILMS_COUNT, PATHNAME_SYMBOL} from '../../constants/constants';
+import {AppRoute, PATHNAME_SYMBOL} from '../../constants/constants';
 import {FilmTypes} from '../../types/film';
 import {ReviewTypes} from '../../types/review';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -18,7 +18,6 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
   const location = useLocation();
   const id = location.pathname.substr(PATHNAME_SYMBOL);
   const filmId = films.findIndex((el) => el.id === id);
-  const moreLikeThisFilms = films.filter((item) => films[filmId].genre === item.genre).slice(0, MORE_LIKE_THIS_FILMS_COUNT);
 
   return (
     <>
@@ -79,7 +78,7 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films={moreLikeThisFilms} />
+          <FilmList genreFilm={films[filmId].genre} />
         </section>
 
         <footer className="page-footer">

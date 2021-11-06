@@ -2,15 +2,8 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
-import {MY_LIST_FILMS_COUNT} from '../../constants/constants';
-import {FilmTypes} from '../../types/film';
 
-type MyListProps = {
-  films: FilmTypes[];
-}
-
-function MyList({films}: MyListProps): JSX.Element {
-  const myFilms = films.slice(0, MY_LIST_FILMS_COUNT);
+function MyList(): JSX.Element {
 
   return (
     <>
@@ -27,7 +20,7 @@ function MyList({films}: MyListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmList films={myFilms} />
+          <FilmList />
         </section>
 
         <footer className="page-footer">
