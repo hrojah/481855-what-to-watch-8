@@ -3,8 +3,8 @@ import UserBlock from '../user-block/user-block';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
 import {FilmTypes} from '../../types/film';
-import Genre from '../genre/genre';
-import {AppRoute, GENRES_ITEMS} from '../../constants/constants';
+import GenresList from '../genre/genres-list';
+import {AppRoute} from '../../constants/constants';
 import {useHistory} from 'react-router-dom';
 
 type MainProps = {
@@ -70,11 +70,9 @@ function Main({films, name, date, genre}: MainProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            {GENRES_ITEMS.map((item, index) => <Genre key={item} genre={item} index={index}/>)}
-          </ul>
+          <GenresList />
 
-          <FilmList films={films} />
+          <FilmList />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
