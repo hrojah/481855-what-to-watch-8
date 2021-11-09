@@ -1,6 +1,7 @@
 export enum ActionType {
   ChangeGenre = 'filter/changeGenre',
   GetFilms = 'filter/getFilms',
+  ShowMore = 'films-list/showMore'
 }
 
 export type ChangeGenreAction = {
@@ -12,4 +13,8 @@ export type GetFilmsAction = {
   type: ActionType.GetFilms;
 }
 
-export type Actions = ChangeGenreAction | GetFilmsAction;
+export type ShowMoreAction = {
+  type: ActionType.ShowMore;
+}
+
+export type Actions = ChangeGenreAction | GetFilmsAction | ShowMoreAction;

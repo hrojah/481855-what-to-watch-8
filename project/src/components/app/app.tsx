@@ -21,7 +21,6 @@ function App({films}: AppProps): JSX.Element {
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main
-            films={films}
             name={promoInformation.NAME}
             date={promoInformation.DATE}
             genre={promoInformation.GENRE}

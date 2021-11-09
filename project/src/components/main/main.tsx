@@ -2,19 +2,17 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
-import {FilmTypes} from '../../types/film';
 import GenresList from '../genre/genres-list';
 import {AppRoute} from '../../constants/constants';
 import {useHistory} from 'react-router-dom';
 
 type MainProps = {
-  films: FilmTypes[];
   name: string;
   date: string;
   genre: string;
 }
 
-function Main({films, name, date, genre}: MainProps): JSX.Element {
+function Main({name, date, genre}: MainProps): JSX.Element {
   const history = useHistory();
 
   return (
@@ -74,9 +72,6 @@ function Main({films, name, date, genre}: MainProps): JSX.Element {
 
           <FilmList />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
 
         <footer className="page-footer">
