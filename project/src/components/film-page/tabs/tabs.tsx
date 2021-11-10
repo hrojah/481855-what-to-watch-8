@@ -8,7 +8,7 @@ import {ReviewTypes} from '../../../types/review';
 type TabsProps = {
   film: FilmTypes;
   reviews: ReviewTypes[];
-  id: string;
+  id: number;
 }
 
 function Tabs({film, reviews, id}: TabsProps): JSX.Element {

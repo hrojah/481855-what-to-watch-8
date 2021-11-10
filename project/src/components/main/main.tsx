@@ -5,14 +5,15 @@ import Hidden from '../hidden/hidden';
 import GenresList from '../genre/genres-list';
 import {AppRoute} from '../../constants/constants';
 import {useHistory} from 'react-router-dom';
+import {FilmTypes} from '../../types/film';
 
 type MainProps = {
-  name: string;
-  date: string;
-  genre: string;
+  promoFilm: FilmTypes
 }
 
-function Main({name, date, genre}: MainProps): JSX.Element {
+function Main(props: MainProps): JSX.Element {
+  const {promoFilm} = props;
+
   const history = useHistory();
 
   return (
@@ -21,7 +22,7 @@ function Main({name, date, genre}: MainProps): JSX.Element {
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -35,14 +36,14 @@ function Main({name, date, genre}: MainProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={promoFilm.poster} alt={promoFilm.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{date}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">

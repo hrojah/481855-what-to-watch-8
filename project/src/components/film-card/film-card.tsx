@@ -7,7 +7,7 @@ import FilmCardVideo from './film-card-player';
 type FilmCardProps = {
   name: string;
   poster: string;
-  id: string;
+  id: number;
   previewVideoLink: string
   setFilmId: any;
 }

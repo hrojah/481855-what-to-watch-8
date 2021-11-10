@@ -3,15 +3,14 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Hidden from '../hidden/hidden';
+import {FilmTypes} from '../../types/film';
 
 
 type AddReviewProps = {
-  name: string;
-  poster: string;
-  backgroundImage: string,
+  films: FilmTypes[];
 }
 
-function AddReview({name, poster, backgroundImage}: AddReviewProps): JSX.Element {
+function AddReview({films}: AddReviewProps): JSX.Element {
   return (
     <>
       <Hidden />
@@ -19,19 +18,19 @@ function AddReview({name, poster, backgroundImage}: AddReviewProps): JSX.Element
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src={backgroundImage} alt={name} />
+            <img src={films[0].backgroundImage} alt={films[0].name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
             <Logo/>
-            <Breadcrumbs name={name}/>
+            <Breadcrumbs name={films[0].name}/>
             <UserBlock/>
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src={poster} alt={name} width="218" height="327" />
+            <img src={films[0].poster} alt={films[0].name} width="218" height="327" />
           </div>
         </div>
         <AddReviewForm/>

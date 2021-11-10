@@ -1,7 +1,5 @@
 import {nanoid} from '@reduxjs/toolkit';
 export const STAR_COUNT = 10;
-export const MY_LIST_FILMS_COUNT = 10;
-export const MORE_LIKE_THIS_FILMS_COUNT = 4;
 export const PATHNAME_SYMBOL = 7;
 export const HOVER_DELAY = 1000;
 export const FILMS_REP_STEP = 8;
@@ -34,11 +32,18 @@ export const AppRoute = {
   PLAYER: '/player/:id?',
 };
 
-export const AuthorizationStatus = {
-  AUTH: 'AUTH',
-  NOAUTH: 'NO_AUTH',
-  UNKNOWN: 'UNKNOWN',
-};
+export enum AuthorizationStatus {
+  AUTH = 'AUTH',
+  NOAUTH = 'NO_AUTH',
+  UNKNOWN = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+  PromoFilm = '/promo'
+}
 
 export const ADD_REVIEWS_STATE = {
   COUNT: '8',
@@ -48,4 +53,24 @@ export const ADD_REVIEWS_STATE = {
 export const MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December '];
 
 export const STARS = new Array(STAR_COUNT).fill(nanoid());
+
+export const blankFilm = {
+  id: 0,
+  name: '',
+  poster: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};
 
