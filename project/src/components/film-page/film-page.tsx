@@ -16,7 +16,7 @@ type FilmPageProps = {
 function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
   const history = useHistory();
   const location = useLocation();
-  const id = location.pathname.substr(PATHNAME_SYMBOL);
+  const id = Number(location.pathname.substr(PATHNAME_SYMBOL));
   const filmId = films.findIndex((el) => el.id === id);
 
   return (
