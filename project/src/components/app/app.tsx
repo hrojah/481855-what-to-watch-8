@@ -1,4 +1,4 @@
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router, Switch, Route} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import Main from '../main/main';
 import MyList from '../my-list/my-list';
@@ -12,6 +12,7 @@ import AddReview from '../add-review/add-review';
 import {reviews} from '../../mocks/reviews';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {State} from '../../types/state';
+import browserHistory from '../../browser-history/browser-history';
 
 const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;
@@ -37,7 +38,7 @@ function App(props: PropsFromRedux): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main promoFilm={promoFilm}/>
@@ -49,7 +50,6 @@ function App(props: PropsFromRedux): JSX.Element {
           exact
           path={AppRoute.MY_LIST}
           render={() => <MyList />}
-          authorizationStatus={AuthorizationStatus.NOAUTH}
         >
         </PrivateRoute>
         <Route exact path={AppRoute.FILM}>
@@ -68,7 +68,7 @@ function App(props: PropsFromRedux): JSX.Element {
           <NotFountScreen />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

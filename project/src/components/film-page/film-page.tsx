@@ -7,6 +7,7 @@ import {AppRoute, PATHNAME_SYMBOL} from '../../constants/constants';
 import {FilmTypes} from '../../types/film';
 import {ReviewTypes} from '../../types/review';
 import {useHistory, useLocation} from 'react-router-dom';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type FilmPageProps = {
   films: FilmTypes[];
@@ -18,6 +19,12 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
   const location = useLocation();
   const id = Number(location.pathname.substr(PATHNAME_SYMBOL));
   const filmId = films.findIndex((el) => el.id === id);
+
+  if (films.length === 0) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>

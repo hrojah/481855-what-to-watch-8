@@ -1,16 +1,47 @@
-function UserBlock(): JSX.Element {
+import {Link} from 'react-router-dom';
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
+import {AuthorizationStatus} from '../../constants/constants';
+import {ThunkAppDispatch} from '../../types/action';
+import {logoutAction} from '../../store/api-actions';
+
+const mapStateToProps = ({authorizationStatus}: State) => ({
+  authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  logoutAccount() {
+    dispatch(logoutAction());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function UserBlock(props: PropsFromRedux): JSX.Element {
+  const {authorizationStatus, logoutAccount} = props;
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return (
+      <ul className="user-block">
+        <li className="user-block__item">
+          <div className="user-block__avatar">
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+          </div>
+        </li>
+        <li className="user-block__item">
+          <Link to="/" onClick={(evt) => {evt.preventDefault(); logoutAccount();}} href="/" className="user-block__link">Sign out</Link>
+        </li>
+      </ul>
+    );
+  }
   return (
-    <ul className="user-block">
-      <li className="user-block__item">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-        </div>
-      </li>
-      <li className="user-block__item">
-        <a href="/" className="user-block__link">Sign out</a>
-      </li>
-    </ul>
+    <div className="user-block">
+      <Link to="/login" className="user-block__link">Sign in</Link>
+    </div>
   );
 }
 
-export default UserBlock;
+export {UserBlock};
+export default connector(UserBlock);
