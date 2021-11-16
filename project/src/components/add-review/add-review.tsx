@@ -3,14 +3,39 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Hidden from '../hidden/hidden';
-import {FilmTypes} from '../../types/film';
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
+import {AddReviewTypes} from '../../types/add-review';
+import {addReviewAction, fetchCurrentFilmAction} from '../../store/api-actions';
+import {ThunkAppDispatch} from '../../types/action';
+import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
 
+const mapStateToProps = ({currentFilm}: State) => ({
+  currentFilm,
+});
 
-type AddReviewProps = {
-  films: FilmTypes[];
-}
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  fetchCurrentFilm(id: number) {
+    dispatch(fetchCurrentFilmAction(id));
+  },
+  addReview(id: number, review: AddReviewTypes) {
+    return dispatch(addReviewAction(id, review));
+  },
+});
 
-function AddReview({films}: AddReviewProps): JSX.Element {
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function AddReview({currentFilm, addReview, fetchCurrentFilm}: ConnectedComponentProps): JSX.Element {
+  const id = +(useParams<{ id: string }>().id);
+
+  useEffect(() => {
+    fetchCurrentFilm(id);
+  }, [fetchCurrentFilm, id]);
+
   return (
     <>
       <Hidden />
@@ -18,25 +43,26 @@ function AddReview({films}: AddReviewProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src={films[0].backgroundImage} alt={films[0].name} />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
             <Logo/>
-            <Breadcrumbs name={films[0].name}/>
+            <Breadcrumbs name={currentFilm.name}/>
             <UserBlock/>
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src={films[0].poster} alt={films[0].name} width="218" height="327" />
+            <img src={currentFilm.poster} alt={currentFilm.name} width="218" height="327" />
           </div>
         </div>
-        <AddReviewForm/>
+        <AddReviewForm onSubmit={(review: AddReviewTypes) => addReview(id, review)}/>
       </section>
     </>
   );
 }
 
-export default AddReview;
+export {AddReview};
+export default connector(AddReview);

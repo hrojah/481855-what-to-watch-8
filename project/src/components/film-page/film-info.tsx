@@ -37,7 +37,7 @@ function FilmInfo({film}: FilmInfoProps): JSX.Element {
 
         <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: {!!film.starring && film.starring.join(' ')} and other</strong></p>
+        <p className="film-card__starring"><strong>Starring: {!!film.starring && film.starring.join(', ')} and other</strong></p>
       </div>
     </>
   );

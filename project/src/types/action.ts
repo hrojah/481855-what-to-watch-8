@@ -3,6 +3,7 @@ import {ServerFilmsTypes, ServerFilmTypes} from './film';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
+import {ReviewsTypes} from './review';
 
 export enum ActionType {
   ChangeGenre = 'filter/changeGenre',
@@ -13,6 +14,9 @@ export enum ActionType {
   RequireLogout = 'user/requireLogout',
   LoadPromoFilm = 'data/loadPromoFilm',
   RedirectToRoute = 'redirectToRoute',
+  LoadCurrentFilm = 'data/loadCurrentFIlm',
+  LoadSimilarFilms = 'data/loadSimilarFilms',
+  LoadReviews = 'data/loadReviews',
 }
 
 export type ChangeGenreAction = {
@@ -38,6 +42,21 @@ export type LoadPromoFilmAction = {
   payload: ServerFilmTypes;
 }
 
+export type LoadCurrentFilmAction = {
+  type: ActionType.LoadCurrentFilm;
+  payload: ServerFilmTypes;
+}
+
+export type LoadSimilarFilmsAction = {
+  type: ActionType.LoadSimilarFilms;
+  payload: ServerFilmsTypes;
+}
+
+export type LoadReviewsAction = {
+  type: ActionType.LoadReviews;
+  payload: ReviewsTypes;
+}
+
 export type RequireAuthorizationAction = {
   type: ActionType.RequireAuthorization;
   payload: AuthorizationStatus;
@@ -52,7 +71,7 @@ export type RedirectToRouteAction = {
   payload: string;
 }
 
-export type Actions = ChangeGenreAction | GetFilmsAction | ShowMoreAction | LoadFilmsAction | RequireAuthorizationAction | RequireLogoutAction | LoadPromoFilmAction | RedirectToRouteAction;
+export type Actions = ChangeGenreAction | GetFilmsAction | ShowMoreAction | LoadFilmsAction | RequireAuthorizationAction | RequireLogoutAction | LoadPromoFilmAction | RedirectToRouteAction | LoadCurrentFilmAction | LoadSimilarFilmsAction |LoadReviewsAction;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

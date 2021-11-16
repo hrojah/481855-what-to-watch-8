@@ -1,5 +1,6 @@
 import {FilmTypes} from './film';
 import {AuthorizationStatus} from '../constants/constants';
+import {ReviewTypes} from './review';
 
 export type State = {
   genre: string,
@@ -8,4 +9,7 @@ export type State = {
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
   promoFilm: FilmTypes;
+  currentFilm: FilmTypes;
+  similarFilms: FilmTypes[];
+  reviews: ReviewTypes[];
 }

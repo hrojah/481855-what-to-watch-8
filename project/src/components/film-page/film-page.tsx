@@ -4,23 +4,62 @@ import Tabs from './tabs/tabs';
 import FilmList from '../films-list/films-list';
 import Hidden from '../hidden/hidden';
 import {AppRoute, PATHNAME_SYMBOL} from '../../constants/constants';
-import {FilmTypes} from '../../types/film';
-import {ReviewTypes} from '../../types/review';
 import {useHistory, useLocation} from 'react-router-dom';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {useStore} from 'react-redux';
+import {fetchCurrentFilmAction, fetchSimilarFilmsAction, fetchReviewsAction} from '../../store/api-actions';
+import {ThunkAppDispatch} from '../../types/action';
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
+import {useEffect} from 'react';
+import {AuthorizationStatus} from '../../constants/constants';
+import {Link} from 'react-router-dom';
 
-type FilmPageProps = {
-  films: FilmTypes[];
-  reviews: ReviewTypes[];
-}
+const mapStateToProps = ({currentFilm, reviews, authorizationStatus}: State) => ({
+  currentFilm,
+  reviews,
+  authorizationStatus,
+});
 
-function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  fetchCurrentFilm(id: number) {
+    dispatch(fetchCurrentFilmAction(id));
+  },
+  fetchSimilarFilms(id: number) {
+    dispatch(fetchSimilarFilmsAction(id));
+  },
+  fetchReviews(id: number) {
+    dispatch(fetchReviewsAction(id));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function FilmPage(props: ConnectedComponentProps): JSX.Element {
+  const {fetchCurrentFilm, currentFilm, fetchSimilarFilms, fetchReviews, reviews, authorizationStatus} = props;
+  const store = useStore();
   const history = useHistory();
   const location = useLocation();
   const id = Number(location.pathname.substr(PATHNAME_SYMBOL));
-  const filmId = films.findIndex((el) => el.id === id);
 
-  if (films.length === 0) {
+  (store.dispatch as ThunkAppDispatch)(fetchCurrentFilmAction(id));
+
+  useEffect(() => {
+    fetchCurrentFilm(id);
+  }, [fetchCurrentFilm, id]);
+
+  useEffect(() => {
+    fetchSimilarFilms(id);
+  }, [fetchSimilarFilms, id]);
+
+  useEffect(() => {
+    fetchReviews(id);
+  }, [fetchReviews, id]);
+
+  if (!currentFilm.id) {
     return (
       <LoadingScreen />
     );
@@ -33,7 +72,7 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -46,10 +85,10 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{films[filmId].name}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{films[filmId].genre}</span>
-                <span className="film-card__year">{films[filmId].released}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -57,15 +96,17 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"/>
                   </svg>
-                  <span onClick={() => history.push(`/player/${id}`)}>Play</span>
+                  <Link to={`/player/${currentFilm.id}`} onClick={() => history.push(`/player/${id}`)}>Play</Link>
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"/>
                   </svg>
-                  <span onClick={() => history.push(AppRoute.MY_LIST)}>My list</span>
+                  <Link to={'/mylist'} onClick={() => history.push(AppRoute.MY_LIST)}>My list</Link>
                 </button>
-                <span onClick={() => history.push(`/films/${id}/review`)} className="btn film-card__button">Add review</span>
+                {authorizationStatus === AuthorizationStatus.AUTH
+                  ? <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">Add review</Link>
+                  : ''}
               </div>
             </div>
           </div>
@@ -74,10 +115,10 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={films[filmId].poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={currentFilm.poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
-            <Tabs film={films[filmId]} reviews={reviews} id={id}/>
+            <Tabs film={currentFilm} reviews={reviews} />
           </div>
         </div>
       </section>
@@ -85,7 +126,7 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList genreFilm={films[filmId].genre} />
+          <FilmList genreFilm={currentFilm.genre} />
         </section>
 
         <footer className="page-footer">
@@ -100,4 +141,5 @@ function FilmPage({films, reviews}: FilmPageProps): JSX.Element {
   );
 }
 
-export default FilmPage;
+export {FilmPage};
+export default connector(FilmPage);

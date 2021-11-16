@@ -1,10 +1,12 @@
 export type ReviewTypes = {
   rating: number,
   comment: string,
-  date: Date,
-  id: string,
+  date: string,
+  id: number,
   user: {
-    id: string,
+    id: number,
     name: string,
   }
 }
+
+export type ReviewsTypes = ReviewTypes[];

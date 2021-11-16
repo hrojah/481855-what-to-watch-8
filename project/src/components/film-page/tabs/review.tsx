@@ -1,29 +1,28 @@
-import {MONTH} from '../../../constants/constants';
+import {ReviewTypes} from '../../../types/review';
+import {getFormattedDate, getFormattedDatetime} from '../../../utils/utils';
 
 type ReviewProps = {
-  comment: string;
-  date: Date;
-  user: {name: string};
-  rating: number;
+  review: ReviewTypes;
 }
 
 
-function Review({comment, date, user, rating}: ReviewProps): JSX.Element {
-  const month = MONTH[date.getMonth() - 1];
-  const reviewDate = `${month} ${date.getDate()}, ${date.getFullYear()}`;
-  const dataTime = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+function Review({review}: ReviewProps): JSX.Element {
+
+  const formattedDate: string = getFormattedDate(review.date);
+  const formattedDateTime: string = getFormattedDatetime(review.date);
+
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{comment}</p>
+        <p className="review__text">{review.comment}</p>
 
         <footer className="review__details">
-          <cite className="review__author">{user.name}</cite>
-          <time className="review__date" dateTime={dataTime}>{reviewDate}</time>
+          <cite className="review__author">{review.user.name}</cite>
+          <time className="review__date" dateTime={formattedDateTime}>{formattedDate}</time>
         </footer>
       </blockquote>
 
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{review.rating}</div>
     </div>
   );
 }

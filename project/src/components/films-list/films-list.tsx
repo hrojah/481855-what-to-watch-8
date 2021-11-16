@@ -6,15 +6,17 @@ import {Actions} from '../../types/action';
 import {ChangeGenre, GetFilms} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
+import {SIMILAR_FILMS_COUNT} from '../../constants/constants';
 
 type FilmListProps = {
   genreFilm?: string;
 }
 
-const mapStateToProps = ({filmList, genre, showedFilmsCount}: State) => ({
+const mapStateToProps = ({filmList, genre, showedFilmsCount, similarFilms}: State) => ({
   filmList,
   genre,
   showedFilmsCount,
+  similarFilms,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
@@ -28,12 +30,12 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & FilmListProps;
 
 function FilmList(props: ConnectedComponentProps): JSX.Element {
-  const {filmList, genre, genreFilm, showedFilmsCount} = props;
+  const {filmList, genre, genreFilm, showedFilmsCount, similarFilms} = props;
   let films;
   const showedFilms = filmList.slice(0, showedFilmsCount);
 
   if (genreFilm) {
-    films = filmList.filter((film) => film.genre === genreFilm);
+    films = similarFilms.slice(0, SIMILAR_FILMS_COUNT);
   } else {
     if (genre === 'All genres') {
       films = showedFilms;

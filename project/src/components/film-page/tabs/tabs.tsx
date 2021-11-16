@@ -8,10 +8,9 @@ import {ReviewTypes} from '../../../types/review';
 type TabsProps = {
   film: FilmTypes;
   reviews: ReviewTypes[];
-  id: number;
 }
 
-function Tabs({film, reviews, id}: TabsProps): JSX.Element {
+function Tabs({film, reviews}: TabsProps): JSX.Element {
   const [isOverview, setIsOverview] = useState(true);
   const [isDetails, setIsDetails] = useState(false);
   const [isReviews, setIsReviews] = useState(false);

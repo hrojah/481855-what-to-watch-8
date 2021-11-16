@@ -38,6 +38,4 @@ export type ServerFilmTypes = {
   ['is_favorite']: boolean;
 };
 
-export type FilmsTypes = FilmTypes[];
-
 export type ServerFilmsTypes = ServerFilmTypes[];

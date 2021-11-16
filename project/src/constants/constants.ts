@@ -3,12 +3,9 @@ export const STAR_COUNT = 10;
 export const PATHNAME_SYMBOL = 7;
 export const HOVER_DELAY = 1000;
 export const FILMS_REP_STEP = 8;
-
-export const promoInformation = {
-  GENRE: 'Drama',
-  DATE: '2014',
-  NAME: 'The Grand Budapest Hotel',
-};
+export const SIMILAR_FILMS_COUNT = 4;
+export const MIN_MESSAGE_LENGTH = 50;
+export const MAX_MESSAGE_LENGTH = 400;
 
 export const GENRES_ITEMS = [
   'All genres',
@@ -42,11 +39,14 @@ export enum APIRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
-  PromoFilm = '/promo'
+  PromoFilm = '/promo',
+  CurrentFilm = '/films/',
+  SimilarFilms = '/films/:id/similar',
+  Review = '/comments/:id',
 }
 
 export const ADD_REVIEWS_STATE = {
-  COUNT: '8',
+  COUNT: 8,
   TEXT: 'Review text',
 };
 

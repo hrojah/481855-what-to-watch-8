@@ -31,14 +31,15 @@ function UserBlock(props: PropsFromRedux): JSX.Element {
           </div>
         </li>
         <li className="user-block__item">
-          <Link to="/" onClick={(evt) => {evt.preventDefault(); logoutAccount();}} href="/" className="user-block__link">Sign out</Link>
+          <Link to='/' onClick={(evt) => {evt.preventDefault(); logoutAccount();}} href="/" className="user-block__link">Sign out</Link>
         </li>
       </ul>
     );
   }
+
   return (
     <div className="user-block">
-      <Link to="/login" className="user-block__link">Sign in</Link>
+      <Link to='/login' className="user-block__link">Sign in</Link>
     </div>
   );
 }

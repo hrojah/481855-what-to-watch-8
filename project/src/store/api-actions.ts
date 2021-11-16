@@ -1,9 +1,11 @@
 import {ThunkActionResult} from '../types/action';
-import {LoadFilms, LoadPromoFilm, RequireAuthorization, RequireLogout, RedirectToRoute} from './action';
+import {LoadFilms, LoadPromoFilm, RequireAuthorization, RequireLogout, RedirectToRoute, LoadCurrentFilm, LoadSimilarFilms, LoadReviews} from './action';
 import {saveToken, dropToken, Token} from '../service/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../constants/constants';
-import {ServerFilmTypes} from '../types/film';
+import {ServerFilmsTypes, ServerFilmTypes} from '../types/film';
 import {AuthData} from '../types/auth-data';
+import {ReviewsTypes} from '../types/review';
+import {AddReviewTypes} from '../types/add-review';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -15,6 +17,30 @@ export const fetchPromoFilmAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<ServerFilmTypes>(APIRoute.PromoFilm);
     dispatch(LoadPromoFilm(data));
+  };
+
+export const fetchCurrentFilmAction = (id: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<ServerFilmTypes>(`${APIRoute.CurrentFilm}${id}`);
+    dispatch(LoadCurrentFilm(data));
+  };
+
+export const fetchSimilarFilmsAction = (id: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<ServerFilmsTypes>(APIRoute.SimilarFilms.replace(':id', id.toString()));
+    dispatch(LoadSimilarFilms(data));
+  };
+
+export const fetchReviewsAction = (id: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<ReviewsTypes>(APIRoute.Review.replace(':id', id.toString()));
+    dispatch(LoadReviews(data));
+  };
+
+export const addReviewAction = (id: number, review: AddReviewTypes): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.post<ReviewsTypes>(APIRoute.Review.replace(':id', id.toString()), review);
+    dispatch(LoadReviews(data));
   };
 
 export const checkAuthAction = (): ThunkActionResult =>

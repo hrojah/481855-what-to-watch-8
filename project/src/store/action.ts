@@ -1,6 +1,7 @@
-import {ActionType, ChangeGenreAction, GetFilmsAction, ShowMoreAction, LoadFilmsAction, RequireAuthorizationAction, RequireLogoutAction, LoadPromoFilmAction, RedirectToRouteAction} from '../types/action';
+import {ActionType, ChangeGenreAction, GetFilmsAction, ShowMoreAction, LoadFilmsAction, RequireAuthorizationAction, RequireLogoutAction, LoadPromoFilmAction, RedirectToRouteAction, LoadCurrentFilmAction, LoadSimilarFilmsAction, LoadReviewsAction} from '../types/action';
 import {AuthorizationStatus} from '../constants/constants';
 import {ServerFilmsTypes, ServerFilmTypes} from '../types/film';
+import {ReviewsTypes} from '../types/review';
 
 export const ChangeGenre = (genre: string): ChangeGenreAction => ({
   type: ActionType.ChangeGenre,
@@ -23,6 +24,21 @@ export const LoadFilms = (films: ServerFilmsTypes): LoadFilmsAction => ({
 export const LoadPromoFilm = (promoFilm: ServerFilmTypes): LoadPromoFilmAction => ({
   type: ActionType.LoadPromoFilm,
   payload: promoFilm,
+});
+
+export const LoadCurrentFilm = (currentFilm: ServerFilmTypes): LoadCurrentFilmAction => ({
+  type: ActionType.LoadCurrentFilm,
+  payload: currentFilm,
+});
+
+export const LoadSimilarFilms = (similarFilms: ServerFilmsTypes): LoadSimilarFilmsAction => ({
+  type: ActionType.LoadSimilarFilms,
+  payload: similarFilms,
+});
+
+export const LoadReviews = (reviews: ReviewsTypes): LoadReviewsAction => ({
+  type: ActionType.LoadReviews,
+  payload: reviews,
 });
 
 export const RequireAuthorization = (authStatus: AuthorizationStatus): RequireAuthorizationAction => ({
